@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "DFN-PKI-Client"
+version = "0.1.0"
+description = "Python module for the DFN-PKI soap API"
+authors = ["Robert Grätz"]
+license = "GPL-3.0-or-later"
+homepage = "https://github.com/ikreb7/DFN-PKI-Client"
+repository = "https://github.com/ikreb7/DFN-PKI-Client"
+documentation = "https://github.com/ikreb7/DFN-PKI-Client"
+packages = [
+    { include = "dfn_pki_client" },
+    { include = "README.md" },
+    { include = "config.ini.example" },
+]
+exclude = ["tests/*", "*.p12", "config.ini"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+cryptography = "^3.4.5"
+pyOpenSSL = "^20.0.1"
+suds-community = "^0.8.4"
+urllib3 = "^1.26.3"
+click = "^7.1.2"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.scripts]
+trackdownchanges = 'dfn_pki_client.main:main'
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

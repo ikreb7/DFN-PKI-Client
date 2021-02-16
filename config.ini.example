@@ -1,0 +1,13 @@
+[default]
+cert = file.p12
+password = 0123456789
+public_wsdl = https://pki.pca.dfn.de/<ca_name>/cgi-bin/pub/soap?wsdl=1
+registration_wsdl = https://ra.pca.dfn.de/<ca_name>/cgi-bin/ra/soap?wsdl=1
+domain_wsdl = https://ra.pca.dfn.de/<ca_name>/cgi-bin/ra/soap/DFNCERT/Domains?wsdl=1'
+
+[test]
+cert = testclient-raid-42.p12
+password = 0123456789
+public_wsdl = https://ra.pca.dfn.de/test-client42-ca/cgi-bin/pub/soap?wsdl=1
+registration_wsdl = https://ra.pca.dfn.de/test-client42-ca/cgi-bin/ra/soap?wsdl=1
+domain_wsdl = https://ra.pca.dfn.de/test-client42-ca/cgi-bin/ra/soap/DFNCERT/Domains?wsdl=1

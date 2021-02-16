@@ -1,0 +1,7 @@
+cryptography
+pyopenssl
+suds-community
+urllib3
+
+pytest
+pytest-cov
