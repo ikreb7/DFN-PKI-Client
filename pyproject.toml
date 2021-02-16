@@ -2,6 +2,7 @@
 name = "DFN-PKI-Client"
 version = "0.1.0"
 description = "Python module for the DFN-PKI soap API"
+readme = "README.md"
 authors = ["Robert Grätz"]
 license = "GPL-3.0-or-later"
 homepage = "https://github.com/ikreb7/DFN-PKI-Client"
