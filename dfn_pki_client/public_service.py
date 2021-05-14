@@ -156,7 +156,7 @@ class PublicServicePKI:
                                            res.Publish, res.SignatureAlgorithm, res.DateSubmitted, res.DateApproved,
                                            res.DateDeleted)
 
-    def get_ca_info(self, ra_id: int):
+    def get_ca_info(self, ra_id: int) -> obj.DFNCERTypesCAInfo:
         """4.1.7 getCAInfo
         Args:
             ra_id (int): Nummer der RA
