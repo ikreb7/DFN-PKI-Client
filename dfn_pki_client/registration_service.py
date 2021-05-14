@@ -9,10 +9,13 @@ from dfn_pki_client.utils import get_wsdl
 
 class RegistrationService:
 
-    def __init__(self, config_path: str, proxy: dict = {}):
+    def __init__(self, config_path: str, proxy: dict = {}, pkcs12_byte_data: bytes = None, pkcs12_password: str = None):
         self.wsdl = get_wsdl('registration', config_path)
+        print(config_path)
         self.proxy = proxy
-        self.client = Client(self.wsdl, transport=client_authentication.SudsTransport(proxy))
+        self.client = Client(self.wsdl,
+                             transport=client_authentication.SudsTransport(proxy, config_path, pkcs12_byte_data,
+                                                                           pkcs12_password))
 
     def get_ca_status(self) -> obj.DFNCERTTypesCAStatus:
         """5.1.1 getCAStatus
@@ -34,8 +37,8 @@ class RegistrationService:
         res = self.client.service.getCAInfo()
         ra_infos = []
         for info in res.RAInfos:
-            info_id = info[2][0]
-            info_name = info[1][0]
+            info_id = info[2]
+            info_name = info[1]
             info_dn_prefixes = info[0][0]
             ra_infos.append(obj.DFNCERTypesRAInfo(info_id, info_name, info_dn_prefixes))
 

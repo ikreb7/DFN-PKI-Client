@@ -17,10 +17,12 @@ from dfn_pki_client.client_authentication import SudsTransport
 
 class DomainService:
 
-    def __init__(self, config_path: str = 'config.ini', proxy: dict = {}):
+    def __init__(self, config_path: str = 'config.ini', proxy: dict = {}, pkcs12_byte_data: bytes = None,
+                 pkcs12_password: str = ""):
         self.wsdl = get_wsdl('domain', config_path)
         self.proxy = proxy
-        self.client = Client(self.wsdl, transport=SudsTransport(config_path, self.proxy))
+        self.client = Client(self.wsdl, transport=SudsTransport(self.proxy, config_path, pkcs12_byte_data,
+                                                                pkcs12_password))
 
     def delete_domain(self, ra_id: int, name: str, type: str, change: str) -> str:
         """5.5.4 deleteDomain

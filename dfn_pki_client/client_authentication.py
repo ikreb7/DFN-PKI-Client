@@ -11,23 +11,28 @@ from urllib3.contrib.pyopenssl import PyOpenSSLContext
 
 
 class SudsTransport(HttpTransport):
-    def __init__(self, proxy=None, section: str = 'default'):
+    def __init__(self, proxy=None, config: str = "config.ini", pkcs12_byte_data: bytes = None,
+                 pkcs12_password: str = "", section: str = 'default'):
+        self.config_path = config
         self.section = section
-        self.cert_name, self.password = self.get_cert_password(self.section)
+        if pkcs12_byte_data and pkcs12_password:
+            self.cert_name, self.password = "", pkcs12_password
+        else:
+            self.cert_name, self.password = self.get_cert_password(self.section)
+
         self.proxy = proxy
-        self.context = self.create_pyopenssl_sslcontext()
+        self.context = self.create_pyopenssl_sslcontext(pkcs12_byte_data=pkcs12_byte_data)
         super(SudsTransport, self).__init__(proxy=self.proxy)
 
-    @staticmethod
-    def get_cert_password(section: str, config_path: str = 'config.ini') -> Tuple[str, str]:
+    def get_cert_password(self, section: str) -> Tuple[str, str]:
 
-        path = pathlib.Path(config_path)
+        path = pathlib.Path(self.config_path)
         if not path.exists():
             print(f"File {path} doesn't exist.")
             sys.exit(-1)
 
         config = configparser.ConfigParser()
-        config_exists = config.read(config_path)
+        config_exists = config.read(self.config_path)
         if config_exists:
             if section in config.sections():
                 if config[section]['cert']:
@@ -45,7 +50,7 @@ class SudsTransport(HttpTransport):
                 print(f"Section '{section}' in config.ini is missing.")
                 sys.exit(-1)
         else:
-            print(f"File {config_path} not found or is empty.")
+            print(f"File {self.config_path} not found or is empty.")
             sys.exit(-1)
 
     def u2handlers(self):
@@ -54,9 +59,12 @@ class SudsTransport(HttpTransport):
         handlers.append(urllib.request.ProxyHandler(proxies=self.proxy))
         return handlers
 
-    def create_pyopenssl_sslcontext(self):
-        with open(self.cert_name, 'rb') as pkcs12_file:
-            pkcs12_data = pkcs12_file.read()
+    def create_pyopenssl_sslcontext(self, pkcs12_byte_data: bytes = None):
+        if not pkcs12_byte_data:
+            with open(self.cert_name, 'rb') as pkcs12_file:
+                pkcs12_data = pkcs12_file.read()
+        else:
+            pkcs12_data = pkcs12_byte_data
 
         if isinstance(self.password, bytes):
             pkcs12_password_bytes = self.password
