@@ -8,9 +8,9 @@ from ssl import PROTOCOL_TLS as ssl_protocol
 from urllib3.contrib.pyopenssl import PyOpenSSLContext
 
 
-def get_wsdl(wsdl: str, path: str = 'config.ini', section: str = 'default') -> typing.Optional[str]:
+def get_wsdl(wsdl: str, config_path: str = 'config.ini', section: str = 'default') -> typing.Optional[str]:
     config = configparser.ConfigParser()
-    path = pathlib.Path(path)
+    path = pathlib.Path(config_path)
     if path.exists():
         config.read(path)
 
@@ -28,10 +28,10 @@ def get_wsdl(wsdl: str, path: str = 'config.ini', section: str = 'default') -> t
         sys.exit(-1)
 
 
-def gen_ssl_context(path: str, section: str = 'default'):
+def gen_ssl_context(config_path: str, section: str = 'default'):
     config = configparser.ConfigParser()
 
-    path = pathlib.Path(path)
+    path = pathlib.Path(config_path)
     if not path.exists():
         print(f"File {path} doesn't exist.")
         sys.exit(-1)
