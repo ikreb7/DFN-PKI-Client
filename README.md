@@ -5,16 +5,16 @@
 ```
 #!/usr/bin/env python
 
-from public_service import PublicServicePKI
-from registration_service import RegistrationService
-from utils import get_wsdl
+from dfn_pki_client.public_service import PublicServicePKI
+from dfn_pki_client.registration_service import RegistrationService
+from dfn_pki_client.utils import get_wsdl
 
 
 def main():
 
     pki = PublicServicePKI('config.ini')
 
-    ca_info = p.get_ca_info(42)
+    ca_info = pki.get_ca_info(42)
 
     print(ca_info)
 
@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
 ## Setup
 
-Create thr file ``config.ini``
+Create the configuration file ``config.ini``
 
 ```
 [default]
