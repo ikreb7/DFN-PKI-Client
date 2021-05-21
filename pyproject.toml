@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "DFN-PKI-Client"
-version = "0.1.3"
+version = "0.1.4"
 description = "Python module for the DFN-PKI soap API"
 readme = "README.md"
 authors = ["Robert Grätz"]

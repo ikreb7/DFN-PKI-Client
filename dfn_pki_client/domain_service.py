@@ -137,8 +137,10 @@ class DomainService:
         print(res)
         results = []
         for result in res.Result:
-            results.append(obj.DFNCERTTypesDomain(result.Name, result.Type, result.Secret,
-                                                  result.Approved, result.ApprovedDate))
+            results.append(obj.DFNCERTTypesExtendedDomain(result.Name, result.Type, result.Secret,
+                                                          result.Approved, result.ApprovedDate, result.Method,
+                                                          result.BRVersion, result.ChallangeMailAddress,
+                                                          result.LastChallangeMailSent, result.ValidUntil))
         acl = obj.DFNCERTTypesDomainACL(res.ACL.RaID, res.ACL.Allowed)
         return obj.DFNCERTTypesExtendedDomainListResult(results, acl)
 
