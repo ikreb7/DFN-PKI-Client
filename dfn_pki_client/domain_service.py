@@ -139,8 +139,8 @@ class DomainService:
         for result in res.Result:
             results.append(obj.DFNCERTTypesExtendedDomain(result.Name, result.Type, result.Secret,
                                                           result.Approved, result.ApprovedDate, result.Method,
-                                                          result.BRVersion, result.ChallangeMailAddress,
-                                                          result.LastChallangeMailSent, result.ValidUntil))
+                                                          result.BRVersion, result.ChallengeMailAddress,
+                                                          result.LastChallengeMailSent, result.ValidUntil))
         acl = obj.DFNCERTTypesDomainACL(res.ACL.RaID, res.ACL.Allowed)
         return obj.DFNCERTTypesExtendedDomainListResult(results, acl)
 
