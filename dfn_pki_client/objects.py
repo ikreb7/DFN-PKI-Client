@@ -419,8 +419,8 @@ class DFNCERTTypesExtendedDomain:
     approved_date: DateTime
     method: str
     br_version: str
-    challange_mail_address: str
-    last_challange_mail_sent: DateTime
+    challenge_mail_address: str
+    last_challenge_mail_sent: DateTime
     valid_until: DateTime
 
 
